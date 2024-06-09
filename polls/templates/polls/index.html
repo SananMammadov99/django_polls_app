@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Question</th>
+            <th>Choice Count</th>
+            <th>Total votes</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for question in latest_questions %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></td>
+                <td>{{ question.choice_set.count }}</td>
+                <td>{{ question.total_votes }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

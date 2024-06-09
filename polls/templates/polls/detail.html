@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Q: {{ question.question_text }}</h3>
+    {% if error_message %}
+    	<div class="alert alert-danger">{{ error_message }}</div>
+    {% endif %}
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="choice" id="choice{{ choice.id }}"
+                   value="{{ choice.id }}"
+            >
+            <label class="form-check-label" for="choice{{ choice.id }}">
+                {{ choice.choice_text }} - {{ choice.votes }}
+            </label>
+        </div>
+    {% endfor %}
+    <br>
+    <button type="submit" class="btn btn-dark">Vote 🎉🎉</button>
+    </form>
+{% endblock %}
